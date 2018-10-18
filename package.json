@@ -1,0 +1,54 @@
+{
+  "name": "celeste",
+  "version": "0.0.1",
+  "main": "lib/index.js",
+  "repository": "https://github.com/jondot/celeste",
+  "license": "MIT",
+  "description": "An all-in-one tool for the awesome list maintainer.",
+  "keywords": [],
+  "bin": {
+    "celeste": "lib/bin.js"
+  },
+  "scripts": {
+    "build:lib": "babel src --out-dir lib --ignore src/__tests__",
+    "build": "yarn build:lib",
+    "release": "yarn build && git commit -am 'build'; yarn version && git push --tags && git push origin master",
+    "main": "yarn babel-node src/bin.js",
+    "test": "yarn test:code",
+    "test:code": "node node_modules/.bin/jest",
+    "watch": "node node_modules/.bin/jest --watch",
+    "flow:sync": "flow-typed install"
+  },
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.2",
+    "got": "^9.2.2",
+    "lodash": "^4.17.11",
+    "p-map": "^2.0.0",
+    "p-queue": "^3.0.0",
+    "remark": "^9.0.0",
+    "remark-parse": "^5.0.0",
+    "remark-preset-lint-recommended": "^3.0.2",
+    "remark-stringify": "^5.0.0",
+    "remark-toc": "^5.0.0",
+    "unified": "^7.0.0",
+    "unified-stream": "^1.0.2",
+    "unist-util-visit": "^1.4.0",
+    "yargs": "^12.0.2"
+  },
+  "devDependencies": {
+    "@babel/node": "^7.0.0",
+    "babel-core": "^7.0.0-0",
+    "babel-jest": "^23.6.0",
+    "flow-bin": "0.81.0",
+    "flow-typed": "^2.5.1",
+    "goddamn-javascript-babel": "^1.0.1",
+    "goddamn-javascript-eslint": "^1.0.1",
+    "jest": "^23.6.0"
+  },
+  "jest": {
+    "testRegex": "src/__tests__/.*\\.spec\\.js$",
+    "transform": {
+      "^.+\\.jsx?$": "babel-jest"
+    }
+  }
+}

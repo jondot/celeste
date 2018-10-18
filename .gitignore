@@ -1,0 +1,12 @@
+node_modules/
+npm-debug.log
+/app/
+.tool-versions
+.idea/
+flow-typed/
+src/__tests__/metaverse/**/given/
+_book
+yarn-error.log
+standalone/
+flow.log
+flow.log.old
