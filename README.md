@@ -5,9 +5,9 @@ An all-in-one tool for the awesome list maintainer.
 
 ## Features
 
-✅ Get Star data from Github, update in-place, report diffs and trends
-✅ Sort lists based on star counts (preserve structure)
-✅ Generate a TOC and embed into README
+✅ Get Star data from Github, update in-place, report diffs and trends  
+✅ Sort lists based on star counts (preserve structure)  
+✅ Generate a TOC and embed into README  
 
 
 ## Quick Start
