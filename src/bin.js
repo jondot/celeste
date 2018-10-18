@@ -27,10 +27,10 @@ const { argv } = yargs.usage('Usage: $0 <commands> [options]').options({
 const content = fs.readFileSync(argv.file).toString()
 const out = argv.out ? fs.openSync(argv.out, 'w') : 1
 const processor = createProcessor({
-  log: formatters[argv.report]
+  log: formatters[argv.report] || text
 })
 async function main() {
   const res = await processor.process(content)
-  await fs.write(out, res, () => {})
+  await fs.write(out, res, () => { })
 }
 main()
