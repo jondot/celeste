@@ -2,7 +2,13 @@ import L from 'lodash'
 import { starsFromLink } from '../ast'
 import type { ProcessorOpts } from '../types'
 
-const sortByStars = ({ log }: ProcessorOpts) => {
+const sortByStars = ({
+  log,
+  plugins: { sortByStars: sortByStarsConfig }
+}: ProcessorOpts) => {
+  if (!sortByStarsConfig) {
+    return () => null
+  }
   function sortByStarsFn() {
     const self: any = this
     const {
@@ -24,7 +30,7 @@ const sortByStars = ({ log }: ProcessorOpts) => {
           }
 
           log({
-            type: 'plugins/sort-by-stars/exclude-link',
+            type: 'sort-by-stars/exclude-link',
             level: 'debug',
             payload: { link }
           })

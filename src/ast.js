@@ -5,16 +5,16 @@ const starsFromLink = (link: any): LinkNode => {
   const res = text.match(`(.* )★(.*)`)
   if (res) {
     const [, desc, stars] = res
-    return { desc, stars }
+    return { desc, stars: stars || '0' }
   }
   return {}
 }
 
 const starsToLink = (link: any, { desc, stars }: LinkNode) => {
-  if (desc && stars) {
-    // eslint-disable-next-line
-    link.children[0].value = `${desc}★${stars}`
-  }
+  // if (desc && stars) {
+  // eslint-disable-next-line
+  link.children[0].value = `${desc}★${stars}`
+  // }
   return link
 }
 

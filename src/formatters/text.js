@@ -1,16 +1,43 @@
+import chalk from 'chalk'
 import type { LogMessage } from '../types'
 
-const formatMessage = (msg: LogMessage): string => {
-  switch (msg.type) {
-    case 'plugins/fetch-stars/update':
-      return `${msg.payload.title}\t +${msg.payload.diff} (${
-        msg.payload.from
-      } -> ${msg.payload.to})`
-    case 'plugins/fetch-stars/url-error':
-      return `error: ${msg.payload.url} ${msg.payload.res}`
+const levels = {
+  info: { icon: 'ℹ', color: chalk.white },
+  debug: { icon: '…', color: chalk.gray },
+  warn: { icon: '⚠', color: chalk.yellow },
+  error: { icon: '✖', color: chalk.red }
+}
+const printWithMessage = (msg: LogMessage) => (str: string) =>
+  levels[msg.level].color(`${levels[msg.level].icon} [${msg.type}] ${str}`)
 
-    case 'plugins/sort-by-stars/exclude-link':
-      return `excluding ${msg.payload.link}`
+const formatMessage = (msg: LogMessage): string => {
+  const print = printWithMessage(msg)
+  switch (msg.type) {
+    case 'fetch-stars/update':
+      return print(
+        `${msg.payload.title}\t +${msg.payload.diff} (${msg.payload.from} -> ${
+          msg.payload.to
+        })`
+      )
+
+    case 'fetch-stars/url-error':
+      return print(`${msg.payload.url} ${msg.payload.res}`)
+
+    case 'broken-links/url-error':
+      return print(`${msg.payload.url} ${msg.payload.res}`)
+
+    case 'sort-by-stars/exclude-link':
+      return print(`excluding <${msg.payload.link}>`)
+
+    case 'magic-strings/flagged':
+      return print(
+        `found '${msg.payload.value}' at Ln ${
+          msg.payload.position.start.line
+        }, Col ${msg.payload.position.start.column}`
+      )
+
+    case 'celeste':
+      return print(`<${msg.payload.err}>`)
 
     default:
       return `no formatter for: ${msg.type}`

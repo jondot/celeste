@@ -1,17 +1,25 @@
 import visit from 'unist-util-visit'
 import PQueue from 'p-queue'
-import got from 'got'
 import cheerio from 'cheerio'
 import { starsFromLink, starsToLink } from '../ast'
 import type { ProcessorOpts } from '../types'
 
-const fetchStars = ({ log }: ProcessorOpts) => () => (node: any) => {
+const fetchStars = ({
+  log,
+  fetch,
+  plugins: { fetchStars: fetchStarsConfig }
+}: ProcessorOpts) => () => (node: any) => {
+  if (!fetchStarsConfig) {
+    return null
+  }
   const queue = new PQueue({ concurrency: 4 })
+  const starmap = {}
+
   visit(node, 'link', link => {
     const { url } = link
     if (!url || !url.match(`https://github.com/([^/]*?)/([^/]*?)/?$`)) return
     queue
-      .add(() => got(url))
+      .add(() => fetch(url))
       .then(({ body }) => {
         const $ = cheerio.load(body)
         const stars = parseInt(
@@ -22,29 +30,11 @@ const fetchStars = ({ log }: ProcessorOpts) => () => (node: any) => {
             .trim(),
           10
         )
-        if (stars > 0) {
-          const { desc, stars: oldStars } = starsFromLink(link)
-          if (desc && oldStars) {
-            starsToLink(link, { desc, stars: stars.toString() })
-            // eslint-disable-next-line
-
-            const from = parseInt(oldStars, 10)
-            log({
-              type: 'plugins/fetch-stars/update',
-              level: 'info',
-              payload: {
-                title: link.children[0].value,
-                diff: stars - from,
-                from,
-                to: stars
-              }
-            })
-          }
-        }
+        starmap[url] = stars
       })
       .catch(res => {
         log({
-          type: 'plugins/fetch-stars/url-error',
+          type: 'fetch-stars/url-error',
           level: 'error',
           payload: {
             url,
@@ -53,7 +43,30 @@ const fetchStars = ({ log }: ProcessorOpts) => () => (node: any) => {
         })
       })
   })
-  return queue.onEmpty()
+  return queue.onIdle().then(() => {
+    visit(node, 'link', link => {
+      const { url } = link
+      const stars = starmap[url]
+      if (stars) {
+        const { desc, stars: oldStars } = starsFromLink(link)
+        if (desc && oldStars) {
+          starsToLink(link, { desc, stars: stars.toString() })
+          const from = parseInt(oldStars, 10)
+          log({
+            type: 'fetch-stars/update',
+            level: 'info',
+            payload: {
+              title: link.children[0].value,
+              diff: stars - from,
+              from,
+              to: stars
+            }
+          })
+        }
+      }
+      return link
+    })
+  })
 }
 
 export default fetchStars
