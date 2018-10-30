@@ -10,7 +10,6 @@ yarn-error.log
 standalone/
 flow.log
 flow.log.old
-celeste-config.js
 out.md
 test.js
 test.md
