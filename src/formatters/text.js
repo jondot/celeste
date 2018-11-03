@@ -16,15 +16,20 @@ const formatMessage = (msg: LogMessage): string => {
     case 'fetch-stars/update':
       return print(
         `${msg.payload.title}\t +${msg.payload.diff} (${msg.payload.from} -> ${
-          msg.payload.to
+        msg.payload.to
         })`
       )
 
     case 'fetch-stars/url-error':
       return print(`${msg.payload.url} ${msg.payload.res}`)
 
+    case 'fetch-stars/progress':
+      return print(`link(s): ${msg.payload.counter}`)
+
     case 'broken-links/url-error':
       return print(`${msg.payload.url} ${msg.payload.res}`)
+    case 'broken-links/progress':
+      return print(`link(s): ${msg.payload.counter}`)
 
     case 'sort-by-stars/exclude-link':
       return print(`excluding <${msg.payload.link}>`)
@@ -32,9 +37,12 @@ const formatMessage = (msg: LogMessage): string => {
     case 'magic-strings/flagged':
       return print(
         `found '${msg.payload.value}' at Ln ${
-          msg.payload.position.start.line
+        msg.payload.position.start.line
         }, Col ${msg.payload.position.start.column}`
       )
+
+    case 'celeste/error-summary':
+      return print(`errors summary:\n${msg.payload.errors.map(formatMessage)}`)
 
     case 'celeste':
       return print(`<${msg.payload.err}>`)

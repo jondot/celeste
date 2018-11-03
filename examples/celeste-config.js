@@ -1,10 +1,5 @@
 module.exports = {
   plugins: {
-    magicStrings: {
-      replacements: {
-        '\\d\\d\\d\\d': () => '***'
-      }
-    },
     brokenLinks: true,
     fetchStars: true,
     gitContributors: {

@@ -14,7 +14,7 @@ const formatters: { [string]: Formatter } = {
 export default async (
   args: { [string]: any },
   config: { [string]: any }
-): Promise<Array<LogMessage>> => {
+): Promise<Logger> => {
   const out = args.out ? fs.openSync(args.out, 'w') : 1
 
   const formatter = formatters[args.report] || text
@@ -36,5 +36,5 @@ export default async (
       payload: { err }
     })
   }
-  return logger.errors
+  return logger
 }

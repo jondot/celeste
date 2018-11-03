@@ -14,6 +14,7 @@ const fetchStars = ({
   }
   const queue = new PQueue({ concurrency: 4 })
   const starmap = {}
+  let counter = 0
 
   visit(node, 'link', link => {
     const { url } = link
@@ -31,6 +32,16 @@ const fetchStars = ({
           10
         )
         starmap[url] = stars
+        counter += 1
+        if (counter % 10 === 0) {
+          log({
+            type: 'fetch-stars/progress',
+            level: 'info',
+            payload: {
+              counter
+            }
+          })
+        }
       })
       .catch(res => {
         log({

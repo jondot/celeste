@@ -23,8 +23,15 @@ async function main() {
   // eslint-disable-next-line
   const config = argv.config ? require(path.join(process.cwd(), argv.config)) : {}
 
-  const errors = await runner(argv, config)
-  if (errors.length > 0) {
+  const logger = await runner(argv, config)
+  if (logger.errors.length > 0) {
+    logger.log({
+      type: 'celeste/error-summary',
+      level: 'info',
+      payload: {
+        errors: logger.errors
+      }
+    })
     process.exit(1)
   }
 }
