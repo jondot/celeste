@@ -5,6 +5,7 @@ all=warn
 all=true
 log.file=flow.log
 
+module.ignore_non_literal_requires=true
 include_warnings=true
 esproposal.class_instance_fields=enable
 esproposal.class_static_fields=enable

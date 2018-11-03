@@ -3,8 +3,16 @@ export type LogMessage = {
   level: 'debug' | 'info' | 'error' | 'warn',
   payload: any
 }
+export type Processor = {
+  +process: (text: string) => string
+}
+export type Formatter = (msg: LogMessage) => void
+export type Logger = {
+  +log: Formatter,
+  errors: Array<LogMessage>
+}
 export type ProcessorOpts = {
-  log: (msg: LogMessage) => void,
+  logger: Logger,
   plugins: { [string]: { [string]: any } },
   fetch: (str: string) => Promise<any>
 }
@@ -12,6 +20,6 @@ export type MagicStringsOpts = ProcessorOpts & {
   replacements: { [string]: (string) => string }
 }
 export type LinkNode = {
-  stars?: string,
-  desc?: string
+  stars: string,
+  desc: string
 }

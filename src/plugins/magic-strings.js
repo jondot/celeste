@@ -3,7 +3,7 @@ import L from 'lodash'
 import type { MagicStringsOpts } from '../types'
 
 const magicStrings = ({
-  log,
+  logger: { log },
   plugins: { magicStrings: magicStringsConfig }
 }: MagicStringsOpts) => () => (node: any) => {
   if (!magicStringsConfig) {

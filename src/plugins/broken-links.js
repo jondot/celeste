@@ -3,7 +3,7 @@ import PQueue from 'p-queue'
 import type { ProcessorOpts } from '../types'
 
 const brokenLinks = ({
-  log,
+  logger: { log },
   fetch,
   plugins: { brokenLinks: brokenLinksConfig }
 }: ProcessorOpts) => () => (node: any) => {

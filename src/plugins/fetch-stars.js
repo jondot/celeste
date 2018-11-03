@@ -5,7 +5,7 @@ import { starsFromLink, starsToLink } from '../ast'
 import type { ProcessorOpts } from '../types'
 
 const fetchStars = ({
-  log,
+  logger: { log },
   fetch,
   plugins: { fetchStars: fetchStarsConfig }
 }: ProcessorOpts) => () => (node: any) => {
@@ -49,7 +49,7 @@ const fetchStars = ({
       const stars = starmap[url]
       if (stars) {
         const { desc, stars: oldStars } = starsFromLink(link)
-        if (desc && oldStars) {
+        if (desc.length > 0 && oldStars.length > 0) {
           starsToLink(link, { desc, stars: stars.toString() })
           const from = parseInt(oldStars, 10)
           log({

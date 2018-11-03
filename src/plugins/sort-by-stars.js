@@ -3,7 +3,7 @@ import { starsFromLink } from '../ast'
 import type { ProcessorOpts } from '../types'
 
 const sortByStars = ({
-  log,
+  logger: { log },
   plugins: { sortByStars: sortByStarsConfig }
 }: ProcessorOpts) => {
   if (!sortByStarsConfig) {

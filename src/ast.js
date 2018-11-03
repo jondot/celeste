@@ -7,7 +7,7 @@ const starsFromLink = (link: any): LinkNode => {
     const [, desc, stars] = res
     return { desc, stars: stars || '0' }
   }
-  return {}
+  return { desc: '', stars: '' }
 }
 
 const starsToLink = (link: any, { desc, stars }: LinkNode) => {

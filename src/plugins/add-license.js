@@ -2,7 +2,7 @@ import license from 'remark-license'
 import type { ProcessorOpts } from '../types'
 
 export default ({
-  log,
+  logger: { log },
   plugins: { addLicense: addLicenseConfig }
 }: ProcessorOpts) => {
   if (!addLicenseConfig) {
