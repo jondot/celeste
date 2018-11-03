@@ -41,8 +41,15 @@ const formatMessage = (msg: LogMessage): string => {
         }, Col ${msg.payload.position.start.column}`
       )
 
+    case 'dedup-links/dupe':
+      return print(`duplicate link: '${msg.payload.url}`)
+
     case 'celeste/error-summary':
-      return print(`errors summary:\n${msg.payload.errors.map(formatMessage)}`)
+      return print(
+        `found ${msg.payload.errors.length} error(s):\n${msg.payload.errors
+          .map(formatMessage)
+          .join('\n')}`
+      )
 
     case 'celeste':
       return print(`<${msg.payload.err}>`)

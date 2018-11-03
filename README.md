@@ -9,6 +9,7 @@ An all-in-one tool for the repository maintainer.
 ✅ Awesome lists: sort lists based on star counts (preserve structure)  
 ✅ Markdown: generate and embed table of contents   
 ✅ Markdown: find broken links  
+✅ Markdown: find duplicate links  
 ✅ Markdown: add open source license automatically  
 ✅ Markdown: add contributors section based on Git history   
 ✅ Find magic strings (secrets, placeholders etc.) and replace them automatically  
@@ -64,6 +65,16 @@ Add this to `celeste-config.js`:
 
 ```js
 brokenLinks: true,
+```
+
+### Duplicate Links
+
+Detects and reports duplicate links in markdown files.
+
+Add this to `celeste-config.js`:
+
+```js
+dedupLinks: true,
 ```
 
 ### Fetch Stars

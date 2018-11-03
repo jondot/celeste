@@ -6,6 +6,7 @@ import stringify from 'remark-stringify'
 import type { Processor, ProcessorOpts } from './types'
 import sortByStars from './plugins/sort-by-stars'
 import fetchStars from './plugins/fetch-stars'
+import dedupLinks from './plugins/dedup-links'
 import createToc from './plugins/toc'
 import createAddLicense from './plugins/add-license'
 import createGitContributors from './plugins/git-contributors'
@@ -23,6 +24,7 @@ const createTextProcessor = (opts: ProcessorOpts): Processor =>
 const createMarkdownProcessor = (opts: ProcessorOpts): Processor =>
   unified()
     .use(parse)
+    .use(dedupLinks(opts))
     .use(brokenLinks(opts))
     .use(fetchStars(opts))
     .use(stringify, {
