@@ -32,7 +32,7 @@ const formatMessage = (msg: LogMessage): string => {
       return print(`link(s): ${msg.payload.counter}`)
 
     case 'sort-by-stars/exclude-link':
-      return print(`excluding <${msg.payload.link}>`)
+      return print(`excluding <${msg.payload.title}, ${msg.payload.url}>`)
 
     case 'magic-strings/flagged':
       return print(
@@ -42,7 +42,7 @@ const formatMessage = (msg: LogMessage): string => {
       )
 
     case 'dedup-links/dupe':
-      return print(`duplicate link: '${msg.payload.url}`)
+      return print(`duplicate link: <${msg.payload.url}>`)
 
     case 'celeste/error-summary':
       return print(
