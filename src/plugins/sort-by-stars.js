@@ -23,8 +23,8 @@ const sortByStars = ({
       node.children = L.sortBy(node.children, listItem => {
         const link = listItem.children[0].children[0]
         if (link.type === 'link') {
-          const { stars } = starsFromLink(link)
-          if (stars) {
+          const { desc, stars } = starsFromLink(link)
+          if (stars.length > 0) {
             const s = -1 * parseInt(stars, 10)
             return s
           }
@@ -32,7 +32,7 @@ const sortByStars = ({
           log({
             type: 'sort-by-stars/exclude-link',
             level: 'debug',
-            payload: { link }
+            payload: { title: desc, url: link.url }
           })
           return 0
         }
