@@ -14,8 +14,15 @@ export type Logger = {
 export type ProcessorOpts = {
   logger: Logger,
   plugins: { [string]: { [string]: any } },
+  publishers: { [string]: { [string]: any } },
   fetch: (str: string) => Promise<any>
 }
+export type PublishParams = {
+  content: string,
+  path: string,
+  message?: string
+}
+
 export type MagicStringsOpts = ProcessorOpts & {
   replacements: { [string]: (string) => string }
 }

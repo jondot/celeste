@@ -13,6 +13,7 @@ An all-in-one tool for the repository maintainer.
 ✅ Markdown: add open source license automatically  
 ✅ Markdown: add contributors section based on Git history   
 ✅ Find magic strings (secrets, placeholders etc.) and replace them automatically  
+✅ Publish results directly to Github or file
 
 
 ## Quick Start
@@ -25,6 +26,55 @@ react-native-swiper ★6881	 +54 (6827 -> 6881)
 << review >>
 $ mv OUT.md README.md
 ```
+
+## Publishers
+
+Celeste supports multiple publishers, for example - for publishing results directly to Github or files.
+
+### File
+
+The simplest form of publisher. Just specify the follow in your `celeste-config.js` file:
+
+```js
+  publishers: {
+    file: true
+  }
+```
+
+### Github
+
+To publish results to Github, specify the following in your `celeste-config.js` file:
+
+File
+```js
+  publishers: {
+    github: {
+      auth: {
+        type: 'token',
+        token: process.env.CELESTE_GH
+      },
+      context: {
+        // ref: 'v0.9.2',
+        repo: 'celeste',
+        owner: 'jondot',
+        defaultCommitMessage: 'Celeste: update'
+      }
+    }
+  }
+```
+
+For `auth` the following is important:
+
+* `type: 'token'` this is always true, unless you prefer a different authentication method (refer to octokit.js)
+* `token: process.env.CELESTE_GH` best to pull the token from an environment variable like specified here
+
+For `context` the following is important:
+
+* `repo: 'celeste'` pick a repository to push to. In this example the repository is called `celeste`
+* `owner: 'jondot'` pick an owner of the repository. In this example the owner is  `jondot`
+* `ref` specify a branch, tag, or commit sha to refer to. It's best to take from an environment variable (Travis will have the current pull request branch set in an environment variable)
+* `defaultCommitMessage` pick a default commit message that celeste will use
+
 
 ## Plugins
 

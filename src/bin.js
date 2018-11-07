@@ -7,15 +7,16 @@ import runner from './runner'
 
 async function main() {
   const { argv } = yargs.usage('Usage: $0 <commands> [options]').options({
-    file: { alias: 'f', describe: 'input file', demandOption: true },
+    input: { alias: 'i', describe: 'input file', demandOption: true },
     config: { alias: 'c', describe: 'configuration file' },
-    out: {
+    output: {
       alias: 'o',
-      describe: 'File to output to'
+      describe: 'File to output to',
+      demandOption: true
     },
-    report: {
-      alias: 'r',
-      describe: 'Report format',
+    format: {
+      alias: 'f',
+      describe: 'Output format',
       choices: Object.keys(formatters)
     }
   })

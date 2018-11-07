@@ -20,8 +20,10 @@
     "flow:sync": "flow-typed install"
   },
   "dependencies": {
+    "@octokit/rest": "^15.15.1",
     "chalk": "^2.4.1",
     "cheerio": "^1.0.0-rc.2",
+    "fs-extra": "^7.0.0",
     "got": "^9.2.2",
     "lodash": "^4.17.11",
     "p-map": "^2.0.0",
