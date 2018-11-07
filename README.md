@@ -20,7 +20,7 @@ An all-in-one tool for the repository maintainer.
 
 ```
 $ yarn add --dev celeste
-$ yarn celeste -f README.md -o OUT.md
+$ yarn celeste -i README.md -o OUT.md
 react-native-swiper ★6881	 +54 (6827 -> 6881)
 ..
 << review >>
@@ -204,7 +204,7 @@ By default `celeste` uses a text formatter for reporting its findings, the text 
 However should you want to integrate with other scripts and tools, all data can be output as `json`:
 
 ```
-$ celeste -f README.md -o OUT.md --report json
+$ celeste -i README.md -o OUT.md --format json
 {"type":"plugins/fetch-stars/update","level":"info","payload":{"title":"React Native Styling Cheatsheet ★2632","diff":43,"from":2589,"to":2632}}
 ...
 ```
@@ -220,7 +220,7 @@ Clone this repo, and run:
 
 ```
 $ yarn
-$ yarn main -c examples/celeste-config.js -f test.md --out out.md
+$ yarn main -c examples/celeste-config.js -i test.md --out out.md
 ```
 
 
