@@ -1,6 +1,11 @@
 module.exports = {
+  processors: {
+    '.*\\.md$': ['text', 'markdown'],
+    '.*': ['text']
+  },
   publishers: {
-    file: true,
+    file: true
+    /*
     github: {
       auth: {
         type: 'token',
@@ -13,8 +18,14 @@ module.exports = {
         defaultCommitMessage: 'Celeste: update'
       }
     }
+    */
   },
   plugins: {
+    magicStrings: {
+      replacements: {
+        '\\d\\d\\d\\d': (line, regex) => '***'
+      }
+    },
     /*
     brokenLinks: true,
     fetchStars: true,

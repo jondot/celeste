@@ -1,5 +1,6 @@
 import fs from 'fs-extra'
-import { createProcessor } from './processors'
+import report from 'vfile-reporter'
+import { createProcessor } from './processors/processors'
 import formatters from './formatters'
 import createCachedFetch from './cached-fetch'
 import Logger from './logger'
@@ -15,13 +16,15 @@ export default async (
     logger,
     publishers: config.publishers,
     plugins: config.plugins,
+    processors: config.processors,
     fetch: createCachedFetch({})
   }
-  const content: string = (await fs.readFile(args.input)).toString()
   const processor = createProcessor(opts)
   const publisher = createPublisher(opts)
   try {
-    const res = await processor(content)
+    const content: string = (await fs.readFile(args.input)).toString()
+    const res = await processor(args.input, content)
+    console.log(report(res))
     const publishContent = { path: args.output, content: res }
     await publisher(publishContent)
   } catch (err) {

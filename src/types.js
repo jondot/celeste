@@ -13,6 +13,7 @@ export type Logger = {
 }
 export type ProcessorOpts = {
   logger: Logger,
+  processors: { [string]: [string] },
   plugins: { [string]: { [string]: any } },
   publishers: { [string]: { [string]: any } },
   fetch: (str: string) => Promise<any>

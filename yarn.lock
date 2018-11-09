@@ -6704,7 +6704,7 @@ repeat-element@^1.1.2:
   resolved "https://registry.yarnpkg.com/repeat-element/-/repeat-element-1.1.2.tgz#ef089a178d1483baae4d93eb98b4f9e4e11d990a"
   integrity sha1-7wiaF40Ug7quTZPrmLT55OEdmQo=
 
-repeat-string@^1.5.2, repeat-string@^1.5.4, repeat-string@^1.6.1:
+repeat-string@^1.5.0, repeat-string@^1.5.2, repeat-string@^1.5.4, repeat-string@^1.6.1:
   version "1.6.1"
   resolved "https://registry.yarnpkg.com/repeat-string/-/repeat-string-1.6.1.tgz#8dcae470e1c88abc2d600fff4a776286da75e637"
   integrity sha1-jcrkcOHIirwtYA//Sndihtp15jc=
@@ -7353,7 +7353,7 @@ supports-color@^4.0.0:
   dependencies:
     has-flag "^2.0.0"
 
-supports-color@^5.3.0:
+supports-color@^5.3.0, supports-color@^5.4.0:
   version "5.5.0"
   resolved "https://registry.yarnpkg.com/supports-color/-/supports-color-5.5.0.tgz#e2e69a44ac8772f78a1ec0b35b689df6530efc8f"
   integrity sha512-QjVjwdXIt408MIiAqCX4oUKsgU2EqAGzs2Ppkm4aQYbjm+ZEWEcW4SfFNTr4uMNZma0ey4f5lgLrkB0aX0QMow==
@@ -7905,6 +7905,28 @@ vfile-message@^1.0.0:
   integrity sha512-vSGCkhNvJzO6VcWC6AlJW4NtYOVtS+RgCaqFIYUjoGIlHnFL+i0LbtYvonDWOMcB97uTPT4PRsyYY7REWC9vug==
   dependencies:
     unist-util-stringify-position "^1.1.1"
+
+vfile-reporter@^5.1.0:
+  version "5.1.0"
+  resolved "https://registry.yarnpkg.com/vfile-reporter/-/vfile-reporter-5.1.0.tgz#a11dca4c8a1a063a573e788eaddc4188c1b9da62"
+  integrity sha512-I6h4GrkNCZf7nWCxcN7BSDAez8+4xD9+qfu5I7yroH6Kj+lpAFFIYfY6WgfCHyscAow5BkOpfHS5hHGBN1Qf8g==
+  dependencies:
+    repeat-string "^1.5.0"
+    string-width "^2.0.0"
+    supports-color "^5.4.0"
+    unist-util-stringify-position "^1.0.0"
+    vfile-sort "^2.1.2"
+    vfile-statistics "^1.1.0"
+
+vfile-sort@^2.1.2:
+  version "2.1.2"
+  resolved "https://registry.yarnpkg.com/vfile-sort/-/vfile-sort-2.1.2.tgz#99aa1b644149f0e0114661af94bd514d2be7d466"
+  integrity sha512-KoX1SaGv5CGoIIPHScklExODrVzCFC5Zo0uBM7iQTmd0PtbCswVIQ2cSESUak/dUICNc2lJyDzl9tXEB+4+P/g==
+
+vfile-statistics@^1.1.0:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/vfile-statistics/-/vfile-statistics-1.1.1.tgz#a22fd4eb844c9eaddd781ad3b3246db88375e2e3"
+  integrity sha512-dxUM6IYvGChHuwMT3dseyU5BHprNRXzAV0OHx1A769lVGsTiT50kU7BbpRFV+IE6oWmU+PwHdsTKfXhnDIRIgQ==
 
 vfile@^2.0.0:
   version "2.3.0"
