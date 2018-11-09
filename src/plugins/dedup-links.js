@@ -8,7 +8,7 @@ const brokenLinks = ({
   if (!dedupLinksConfig) {
     return null
   }
-  const linkmap: { [string]: string } = {}
+  const linkmap: { [string]: boolean } = {}
   visit(node, 'link', link => {
     const { url } = link
     if (linkmap[url]) {

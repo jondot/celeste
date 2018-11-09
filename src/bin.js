@@ -9,11 +9,6 @@ async function main() {
   const { argv } = yargs.usage('Usage: $0 <commands> [options]').options({
     input: { alias: 'i', describe: 'input file', demandOption: true },
     config: { alias: 'c', describe: 'configuration file' },
-    output: {
-      alias: 'o',
-      describe: 'File to output to',
-      demandOption: true
-    },
     format: {
       alias: 'f',
       describe: 'Output format',

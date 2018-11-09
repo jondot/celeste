@@ -1,3 +1,4 @@
+// $FlowFixMe
 import Octokit from '@octokit/rest'
 import type { ProcessorOpts, PublishParams } from '../types'
 

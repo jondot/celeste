@@ -1,5 +1,5 @@
 import L from 'lodash'
-import type { Processor, ProcessorOpts } from './types'
+import type { ProcessorOpts } from '../types'
 import createTextProcessor from './text'
 import createMarkdownProcessor from './markdown'
 
@@ -11,15 +11,16 @@ const createProcessor = (opts: ProcessorOpts) => {
     markdown: markdownProcessor
   }
 
-  return async (path: string, content: string): Promise<string> => {
-    const pipe = L.find(opts.processors, (v, k) => path.match(k))
+  return async (vf: any): Promise<any> => {
+    // $FlowFixMe
+    const pipe = L.find(opts.processors, (v, k) => vf.path.match(k))
     if (!pipe) {
-      return content
+      return vf
     }
     return L.reduce(
       pipe,
       (p, x) => p.then(processors[x].process),
-      Promise.resolve(content)
+      Promise.resolve(vf)
     )
   }
 }

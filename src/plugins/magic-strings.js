@@ -5,7 +5,7 @@ import type { MagicStringsOpts } from '../types'
 const magicStrings = ({
   logger: { log },
   plugins: { magicStrings: magicStringsConfig }
-}: MagicStringsOpts) => () => (node: any, vfile: any) => {
+}: MagicStringsOpts) => () => (node: any, vf: any) => {
   if (!magicStringsConfig) {
     return null
   }
@@ -14,8 +14,9 @@ const magicStrings = ({
   visit(node, 'TextNode', t => {
     const k = L.find(Object.keys(replacements), r => t.value.match(r))
     if (k != null) {
-      vfile.message('found magic string', t.position)
+      vf.message('found magic string', t.position)
       log({
+        path: vf.path,
         type: 'magic-strings/flagged',
         level: 'warn',
         payload: { value: t.value, position: t.position }

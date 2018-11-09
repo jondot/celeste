@@ -1,4 +1,5 @@
 export type LogMessage = {
+  path?: String,
   type: string,
   level: 'debug' | 'info' | 'error' | 'warn',
   payload: any

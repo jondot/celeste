@@ -8,7 +8,9 @@ const levels = {
   error: { icon: '✖', color: chalk.red }
 }
 const printWithMessage = (msg: LogMessage) => (str: string) =>
-  levels[msg.level].color(`${levels[msg.level].icon} [${msg.type}] ${str}`)
+  levels[msg.level].color(
+    `${levels[msg.level].icon} [${msg.type}]<${msg.path || '-'}> ${str}`
+  )
 
 const formatMessage = (msg: LogMessage): string => {
   const print = printWithMessage(msg)
@@ -16,7 +18,7 @@ const formatMessage = (msg: LogMessage): string => {
     case 'fetch-stars/update':
       return print(
         `${msg.payload.title}\t +${msg.payload.diff} (${msg.payload.from} -> ${
-        msg.payload.to
+          msg.payload.to
         })`
       )
 
@@ -37,7 +39,7 @@ const formatMessage = (msg: LogMessage): string => {
     case 'magic-strings/flagged':
       return print(
         `found '${msg.payload.value}' at Ln ${
-        msg.payload.position.start.line
+          msg.payload.position.start.line
         }, Col ${msg.payload.position.start.column}`
       )
 

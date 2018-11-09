@@ -4,7 +4,7 @@ module.exports = {
     '.*': ['text']
   },
   publishers: {
-    file: true
+    //    file: true
     /*
     github: {
       auth: {
@@ -23,7 +23,7 @@ module.exports = {
   plugins: {
     magicStrings: {
       replacements: {
-        '\\d\\d\\d\\d': (line, regex) => '***'
+        '\\d\\d\\d\\d': () => '***'
       }
     },
     /*

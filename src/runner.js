@@ -1,5 +1,8 @@
+// $FlowFixMe
 import fs from 'fs-extra'
 import report from 'vfile-reporter'
+import globby from 'globby'
+import vfile from 'vfile'
 import { createProcessor } from './processors/processors'
 import formatters from './formatters'
 import createCachedFetch from './cached-fetch'
@@ -21,18 +24,23 @@ export default async (
   }
   const processor = createProcessor(opts)
   const publisher = createPublisher(opts)
-  try {
-    const content: string = (await fs.readFile(args.input)).toString()
-    const res = await processor(args.input, content)
-    console.log(report(res))
-    const publishContent = { path: args.output, content: res }
-    await publisher(publishContent)
-  } catch (err) {
-    logger.log({
-      type: 'celeste',
-      level: 'error',
-      payload: { err, stack: err.stack }
-    })
+  const files = await globby(args.input)
+  // eslint-disable-next-line
+  for (const path of files) {
+    try {
+      const contents: string = (await fs.readFile(path)).toString()
+      const vf = vfile({ path, contents })
+      const res = await processor(vf)
+      console.log(report(res))
+      const publishContent = { path: args.output, content: res }
+      await publisher(publishContent)
+    } catch (err) {
+      logger.log({
+        type: 'celeste',
+        level: 'error',
+        payload: { err, stack: err.stack }
+      })
+    }
   }
   return logger
 }

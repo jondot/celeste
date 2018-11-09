@@ -1,3 +1,4 @@
+// $FlowFixMe
 import fs from 'fs-extra'
 import type { ProcessorOpts, PublishParams } from '../types'
 

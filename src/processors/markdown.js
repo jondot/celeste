@@ -1,7 +1,7 @@
 import unified from 'unified'
 import parse from 'remark-parse'
 import stringify from 'remark-stringify'
-import type { Processor, ProcessorOpts } from './types'
+import type { Processor, ProcessorOpts } from '../types'
 import {
   sortByStars,
   fetchStars,
