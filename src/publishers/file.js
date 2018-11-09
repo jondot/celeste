@@ -9,7 +9,7 @@ const createFilePublisher = ({
   if (!file) {
     return
   }
-  if (!params.path || !params.content) {
+  if (!params.path || !params.contents) {
     throw new Error(`Not all params given ${JSON.stringify(params)}`)
   }
 
@@ -18,11 +18,11 @@ const createFilePublisher = ({
     type: 'file-publisher/publishing',
     payload: {
       path: params.path,
-      len: params.content.length
+      len: params.contents.length
     }
   })
   // write to temp file and move
-  await fs.writeFile(params.path, params.content)
+  await fs.writeFile(params.path, params.contents)
   log({
     level: 'info',
     type: 'file-publisher/done',

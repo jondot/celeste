@@ -18,18 +18,46 @@ An all-in-one tool for the repository maintainer.
 
 ## Quick Start
 
+Get a configuration file from [examples/celeste-config.js](examples/celeste-config.js) and add the plugins you need, then:
+
 ```
 $ yarn add --dev celeste
-$ yarn celeste -i README.md -o OUT.md
+$ yarn celeste -i README.md
 react-native-swiper ★6881	 +54 (6827 -> 6881)
 ..
-<< review >>
-$ mv OUT.md README.md
 ```
+
+Celeste will scan your files and notify you, as well as edit and fix files automatically if you configure the `publishers` section with the `file` publisher. In such cases make sure you have everything committed properly.
+
+You can also glob to run over multiple files:
+
+```
+$ yarn celeste -i '*.md'
+```
+
+## Processors
+
+Celeste has a `text` (for all files) and `markdown` processors as well as the ability to activate multiple processors per file. You match file extensions or patterns to a pipeline of processor by specifying it in your `celeste-config.js` file:
+
+
+```js
+processors: {
+  '.*\\.md$': ['text', 'markdown'],
+  '.*': ['text']
+},
+```
+
+Each pattern is a regex, so you can capture not only file extensions but also any pattern you think of.
 
 ## Publishers
 
-Celeste supports multiple publishers, for example - for publishing results directly to Github or files.
+Celeste supports multiple publishers, for example - for publishing results directly to Github or files. 
+
+You can leave this section empty if you only want logs and no side effects (no disk writes or Github publishing).
+
+```js
+publishers: {}
+```
 
 ### File
 
@@ -204,7 +232,7 @@ By default `celeste` uses a text formatter for reporting its findings, the text 
 However should you want to integrate with other scripts and tools, all data can be output as `json`:
 
 ```
-$ celeste -i README.md -o OUT.md --format json
+$ celeste -i README.md --format json
 {"type":"plugins/fetch-stars/update","level":"info","payload":{"title":"React Native Styling Cheatsheet ★2632","diff":43,"from":2589,"to":2632}}
 ...
 ```
@@ -220,7 +248,7 @@ Clone this repo, and run:
 
 ```
 $ yarn
-$ yarn main -c examples/celeste-config.js -i test.md --out out.md
+$ yarn main -c examples/celeste-config.js -i test.md
 ```
 
 

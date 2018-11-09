@@ -4,7 +4,7 @@ module.exports = {
     '.*': ['text']
   },
   publishers: {
-    //    file: true
+    file: true
     /*
     github: {
       auth: {

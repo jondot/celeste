@@ -1,6 +1,6 @@
 // $FlowFixMe
 import fs from 'fs-extra'
-import report from 'vfile-reporter'
+// import report from 'vfile-reporter'
 import globby from 'globby'
 import vfile from 'vfile'
 import { createProcessor } from './processors/processors'
@@ -28,12 +28,16 @@ export default async (
   // eslint-disable-next-line
   for (const path of files) {
     try {
+      // eslint-disable-next-line
       const contents: string = (await fs.readFile(path)).toString()
       const vf = vfile({ path, contents })
+
+      // eslint-disable-next-line
       const res = await processor(vf)
-      console.log(report(res))
-      const publishContent = { path: args.output, content: res }
-      await publisher(publishContent)
+      // console.log(report(res))
+
+      // eslint-disable-next-line
+      await publisher(vf)
     } catch (err) {
       logger.log({
         type: 'celeste',

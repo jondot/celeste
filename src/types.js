@@ -20,9 +20,9 @@ export type ProcessorOpts = {
   fetch: (str: string) => Promise<any>
 }
 export type PublishParams = {
-  content: string,
+  contents: string,
   path: string,
-  message?: string
+  messages: [string]
 }
 
 export type MagicStringsOpts = ProcessorOpts & {

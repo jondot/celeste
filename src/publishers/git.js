@@ -12,7 +12,7 @@ const createGitPublisher = ({
     return
   }
 
-  if (!params.path || !params.content) {
+  if (!params.path || !params.contents) {
     throw new Error(`Not all params given ${JSON.stringify(params)}`)
   }
 
@@ -26,7 +26,7 @@ const createGitPublisher = ({
     type: 'git-publisher/publishing',
     payload: {
       path: params.path,
-      len: params.content.length
+      len: params.contents.length
     }
   })
   const content = await gh.repos.getContent({
@@ -40,8 +40,10 @@ const createGitPublisher = ({
     ...context,
     sha: content.data.sha,
     path: params.path,
-    content: b64(params.content),
-    message: params.message || context.defaultCommitMessage
+    content: b64(params.contents),
+    message:
+      (params.messages && params.messages.join('\n')) ||
+      context.defaultCommitMessage
   })
   log({
     level: 'info',
