@@ -1,6 +1,6 @@
 {
   "name": "celeste",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "main": "lib/index.js",
   "repository": "https://github.com/jondot/celeste",
   "license": "MIT",
