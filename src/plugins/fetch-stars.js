@@ -60,20 +60,21 @@ const fetchStars = ({
       const stars = starmap[url]
       if (stars) {
         const { desc, stars: oldStars } = starsFromLink(link)
-        if (desc.length > 0 && oldStars.length > 0) {
-          starsToLink(link, { desc, stars: stars.toString() })
-          const from = parseInt(oldStars, 10)
-          log({
-            type: 'fetch-stars/update',
-            level: 'info',
-            payload: {
-              title: link.children[0].value,
-              diff: stars - from,
-              from,
-              to: stars
-            }
-          })
-        }
+        starsToLink(link, {
+          desc: desc.length > 0 ? desc : `${link.url} `,
+          stars: stars.toString()
+        })
+        const from = parseInt(oldStars, 10)
+        log({
+          type: 'fetch-stars/update',
+          level: 'info',
+          payload: {
+            title: link.children[0].value,
+            diff: stars - from,
+            from,
+            to: stars
+          }
+        })
       }
       return link
     })

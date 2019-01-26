@@ -21,7 +21,8 @@ const sortByStars = ({
     visitors.list = function list(node) {
       // eslint-disable-next-line
       node.children = L.sortBy(node.children, listItem => {
-        const link = listItem.children[0].children[0]
+        // TODO: search for first link within listItem instead of hardcoding
+        const link = listItem.children[0].children.find(l => l.type === 'link')
         if (link.type === 'link') {
           const { desc, stars } = starsFromLink(link)
           if (stars.length > 0) {
